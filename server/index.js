@@ -12,13 +12,19 @@ const db = mysql.createConnection({
   insecureAuth : config.insecureAuth
   });
 
-app.get('/api', (req, res) => {
+/* app.get('/api', (req, res) => {
    const sqlQuery = "INSERT INTO request (rowno) VALUES (1)";
    db.query(sqlQuery, (err, result) => {
     res.send("success!!");
    })
-    
-})
+}); */
+
+app.get('/api/list', (req, res) => {
+  const sqlQuery = "SELECT * FROM BOARD;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  })
+});
 
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);
