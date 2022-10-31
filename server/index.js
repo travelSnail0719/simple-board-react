@@ -12,15 +12,15 @@ const db = mysql.createConnection({
   insecureAuth : config.insecureAuth
   });
 
-/* app.get('/api', (req, res) => {
+app.get('/api', (req, res) => {
    const sqlQuery = "INSERT INTO request (rowno) VALUES (1)";
    db.query(sqlQuery, (err, result) => {
     res.send("success!!");
    })
-}); */
+});
 
 app.get('/api/list', (req, res) => {
-  const sqlQuery = "SELECT * FROM BOARD;";
+  const sqlQuery =  "SELECT BOARD_ID, BOARD_TITLE, REGISTER_ID, DATE_FORMAT(REGISTER_DATE, '%Y-%m-%d') AS REGISTER_DATE FROM BOARD;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   })

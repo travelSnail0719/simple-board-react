@@ -1,70 +1,67 @@
-import { Component } from "react";
+import {useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 
+
+
 const submitTest = () => {
     axios.get('/api', {}).then(() => {
-        alert("등록 완료");
+        alert('등록성공')
     })
 }
 
 /**
  * BoardList class
  */
-class BoardList extends Component {
-    /**
-     * @return {Component} Component
-     */
-    render() {
-        return (
-            <div>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>선택</th>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input type={"checkBox"}></input>
-                        </td>
-                        <td>1</td>
-                        <td>게시글1</td>
-                        <td>artistJay</td>
-                        <td>2022-03-19</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type={"checkBox"}></input>
-                        </td>
-                        <td>2</td>
-                        <td>게시글2</td>
-                        <td>artistJay</td>
-                        <td>2022-03-19</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type={"checkBox"}></input>
-                        </td>
-                        <td>3</td>
-                        <td>게시글2</td>
-                        <td>artistJay</td>
-                        <td>2022-03-19</td>
-                    </tr>
-                </tbody>
-            </Table>
-            <Button variant="info" onClick={submitTest}>글쓰기</Button>
-            <Button variant="secondary">수정하기</Button>
-            <Button variant="danger">삭제하기</Button>
-            </div>
-        );
-    }
+function BoardList() {
+
+    const [listData, setListData] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/list', {}).then((response) => {
+            setListData(response.data);
+        })
+    });
+    
+    return (
+        <div>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    listData.map(v => {
+                        return(
+                            
+                            <tr key={v.BOARD_ID}>
+                            <td>
+                                <input type={"checkBox"}></input>
+                            </td>
+                            <td>{v.BOARD_ID}</td>
+                            <td>{v.BOARD_TITLE}</td>
+                            <td>{v.REGISTER_ID}</td>
+                            <td>{v.REGISTER_DATE}</td>
+                            </tr>
+                            
+                        )
+                    })
+                }
+               
+            </tbody>
+        </Table>
+        <Button variant="info" onClick={submitTest}>글쓰기</Button>
+        <Button variant="secondary">수정하기</Button>
+        <Button variant="danger">삭제하기</Button>
+        </div>
+    );
 }
 
 export default BoardList;
