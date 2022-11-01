@@ -1,8 +1,15 @@
-const exrpess = require('express');
-const app = exrpess();
+const express = require('express');
+const app = express();
 const mysql = require('mysql');
 const PORT = process.env.port || 8000;
 const config = require('./key');
+
+
+const bodyParser = require("body-parser");
+
+// 아랫부분 적당한 위치에 추가
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
   host : config.host,
@@ -25,6 +32,39 @@ app.get('/api/list', (req, res) => {
     res.send(result);
   })
 });
+
+app.post('/api/write', (req, res) => {
+  
+  const title = req.body.title;
+  const content = req.body.content;
+
+  console.log('req', req.body);
+  console.log('title', title);
+  console.log('content', content);
+
+  const sqlQuery = "INSERT INTO BOARD(BOARD_TITLE, BOARD_CONTENT, REGISTER_ID) VALUES (?, ?, 'travelSnail');";
+  db.query(sqlQuery, [title, content],(err, result) => {
+    if(err){
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+
+app.post('/api/update', (req, res) => {
+  const title = req.body.title;
+  const content = req.body.content;
+
+  const sqlQuery = "UPDATE BOARD SET (BOARD_TITLE = ?, BOARD_CONTENT = ?, UPDATER_ID) FROM (?, ?, 'travelSnail');";
+  db.query(sqlQuery, [title, content], (err, result) => {
+    if(err){
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
 
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);

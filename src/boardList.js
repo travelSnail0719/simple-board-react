@@ -11,18 +11,19 @@ const submitTest = () => {
     })
 }
 
-/**
- * BoardList class
- */
 function BoardList() {
 
     const [listData, setListData] = useState([]);
 
-    useEffect(() => {
-        axios.get('/api/list', {}).then((response) => {
-            setListData(response.data);
+    const getListData = async () => {
+       await axios.get('/api/list').then(response => {
+            setListData(response.data)
         })
-    });
+    }
+
+    useEffect(() => {
+        getListData();
+    }, []);
     
     return (
         <div>
