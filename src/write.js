@@ -1,10 +1,17 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
+import {useNavigate} from 'react-router-dom'
 import Button from "react-bootstrap/Button";
 import axios from 'axios';
 
 
 function Write() {
+
+    const navigate = useNavigate()
+
+    const moveHandler = () => {
+        navigate('/')
+    }
 
     const [isModifyMode, setIsModifyMode] = useState(true);
     const [title, setTitle] = useState('');
@@ -65,7 +72,7 @@ function Write() {
                 </Form.Group>
             </Form>
             <Button variant="info" onClick={isModifyMode ? isWrite : update}>작성완료</Button>
-            <Button variant="secondary">취소</Button>
+            <Button variant="secondary" onClick={moveHandler}>취소</Button>
         </div>
     );
 }
