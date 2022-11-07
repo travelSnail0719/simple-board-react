@@ -30,6 +30,8 @@ function Write() {
         })
         .then((res) => {
             console.log('res', res);
+            alert('등록이 완료되었습니다.');
+            navigate('/');
         })
         .catch((err) => {
             console.log('state1', state);

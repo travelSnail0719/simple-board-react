@@ -13,10 +13,6 @@ const submitTest = () => {
     })
 }
 
-
-
-
-
 function BoardList() {
     const navigate = useNavigate();
 
@@ -31,12 +27,19 @@ function BoardList() {
     const handleChecked = (checked, id) => {
         if(checked){
             setIsChecked([...isChecked, id]);
-            console.log('체크반영 완료');
         } else {
             setIsChecked(isChecked.filter(v => v !== id));
-            console.log('checked', isChecked);
-            console.log('체크반영 해제완료');
         }
+    }
+
+    const deleteToData = () => {
+        axios.post('/api/delete', {
+            id : isChecked
+        }).then((res) => {
+            alert('선택하신 글이 삭제가 완료되었습니다.');
+        }).catch((err) => {
+            console.log(err.response.data);
+        })
     }
 
     const getListData = async () => {
@@ -68,9 +71,14 @@ function BoardList() {
                             
                             <tr key={v.BOARD_ID}>
                             <td>
-                                <input type={"checkBox"} value={v.BOARD_ID} onChange={e => {
-                                    handleChecked(e.currentTarget.checked, v.BOARD_ID)
-                                }} checked={isChecked.includes(v.BOARD_ID) ? true : false}></input>
+                                <input type={"checkBox"} 
+                                       value={v.BOARD_ID}
+                                       onChange={e => {
+                                                        handleChecked(e.currentTarget.checked, v.BOARD_ID)
+                                                    }
+                                                }
+                                       checked={isChecked.includes(v.BOARD_ID) ? true : false}>
+                                </input>
                             </td>
                             <td>{v.BOARD_ID}</td>
                             <td>{v.BOARD_TITLE}</td>
@@ -86,7 +94,7 @@ function BoardList() {
         </Table>
         <Button variant="info" onClick={moveHandler}>글쓰기</Button>
         <Button variant="secondary">수정하기</Button>
-        <Button variant="danger">삭제하기</Button>
+        <Button variant="danger" onClick={deleteToData}>삭제하기</Button>
         </div>
     );
 }

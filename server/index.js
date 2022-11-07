@@ -52,6 +52,20 @@ app.post('/api/write', (req, res) => {
   })
 })
 
+app.post('/api/delete', (req, res) => {
+  const id = req.body.id;
+
+  const sqlQuery = 'DELETE FROM BOARD WHERE BOARD_ID IN (?);';
+  db.query(sqlQuery, [id], (err, result) => {
+    if(err){
+      console.log('err', err);
+    } else {
+      res.send(result);
+      console.log('result', result);
+    }
+  })
+})
+
 app.post('/api/update', (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
