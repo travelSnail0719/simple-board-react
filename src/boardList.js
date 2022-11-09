@@ -20,6 +20,9 @@ function BoardList() {
         navigate('/write');
     }
     
+    const goToDetail = (boardId) => {
+        navigate('/detail', {state : {id : boardId}});
+    }
 
     const [isChecked, setIsChecked] = useState([]);
     const [listData, setListData] = useState([]);
@@ -81,7 +84,9 @@ function BoardList() {
                                 </input>
                             </td>
                             <td>{v.BOARD_ID}</td>
-                            <td>{v.BOARD_TITLE}</td>
+                            <td onClick={e => {
+                                goToDetail(v.BOARD_ID);
+                            }}>{v.BOARD_TITLE}</td>
                             <td>{v.REGISTER_ID}</td>
                             <td>{v.REGISTER_DATE}</td>
                             </tr>

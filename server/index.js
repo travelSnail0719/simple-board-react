@@ -80,6 +80,19 @@ app.post('/api/update', (req, res) => {
   })
 })
 
+app.get('/api/detail', (req, res) => {
+  const id = req.body.id;
+  console.log('req', req);
+  const sqlQuery = "SELECT BOARD_TITLE, BOARD_CONTENT FROM BOARD WHERE BOARD_ID = ?;";
+  db.query(sqlQuery, [id], (err, result) => {
+    if(err){
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);
 })

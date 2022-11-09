@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import BoardList from './boardList';
 import Write from './write';
+import Detail from './detail'
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/" element = {<BoardList/>} />
       <Route path="/write" element = {<Write />} />
+      <Route path="/detail" element = {<Detail />} />
     </Routes>
   </BrowserRouter>
   );
