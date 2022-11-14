@@ -81,8 +81,8 @@ app.post('/api/update', (req, res) => {
 })
 
 app.get('/api/detail', (req, res) => {
-  const id = req.body.id;
-  console.log('req', req);
+  const id = req.query.id;
+  console.log('req', id);
   const sqlQuery = "SELECT BOARD_TITLE, BOARD_CONTENT FROM BOARD WHERE BOARD_ID = ?;";
   db.query(sqlQuery, [id], (err, result) => {
     if(err){

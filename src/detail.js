@@ -1,18 +1,15 @@
 import axios from "axios";
 import { useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import {useLocation} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 
 function Deatil() {
 
-  const location = useLocation();
-
-  let state = {
-    id : location.state.id
-  }
+  const {id} = useParams();
   
   useEffect(() => {
-    axios.get('/api/detail', {id : state.id})
+    console.log('id', id);
+    axios.get('/api/detail', {params : {id}})
         .then((res) => {
             console.log('resData', res.data);
             console.log('불러오기 성공');

@@ -2,7 +2,7 @@ import {useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 import Write from "./write";
 
 
@@ -20,9 +20,9 @@ function BoardList() {
         navigate('/write');
     }
     
-    const goToDetail = (boardId) => {
-        navigate('/detail', {state : {id : boardId}});
-    }
+    // const goToDetail = (boardId) => {
+    //     navigate('/detail', {state : {id : boardId}});
+    // }
 
     const [isChecked, setIsChecked] = useState([]);
     const [listData, setListData] = useState([]);
@@ -84,9 +84,7 @@ function BoardList() {
                                 </input>
                             </td>
                             <td>{v.BOARD_ID}</td>
-                            <td onClick={e => {
-                                goToDetail(v.BOARD_ID);
-                            }}>{v.BOARD_TITLE}</td>
+                            <td><Link to={`/detail/${v.BOARD_ID}`}>{v.BOARD_TITLE}</Link></td>
                             <td>{v.REGISTER_ID}</td>
                             <td>{v.REGISTER_DATE}</td>
                             </tr>

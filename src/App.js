@@ -9,11 +9,11 @@ import Detail from './detail'
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element = {<BoardList/>} />
-      <Route path="/write" element = {<Write />} />
-      <Route path="/detail" element = {<Detail />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element = {<BoardList/>} />
+        <Route path="/write" element = {<Write />} />
+        <Route path="/detail/:id" element = {<Detail />} />
+      </Routes>
   </BrowserRouter>
   );
 }
