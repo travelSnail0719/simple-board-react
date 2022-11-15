@@ -69,9 +69,12 @@ app.post('/api/delete', (req, res) => {
 app.post('/api/update', (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
+  const id = req.body.id;
 
-  const sqlQuery = "UPDATE BOARD SET (BOARD_TITLE = ?, BOARD_CONTENT = ?, UPDATER_ID) FROM (?, ?, 'travelSnail');";
-  db.query(sqlQuery, [title, content], (err, result) => {
+  console.log(title, content, id);
+
+  const sqlQuery = "UPDATE BOARD SET BOARD_TITLE = ?, BOARD_CONTENT = ?, UPDATER_ID = 'travelSnail' WHERE BOARD_ID = ?;";
+  db.query(sqlQuery, [title, content, id], (err, result) => {
     if(err){
       console.log(err);
     } else {

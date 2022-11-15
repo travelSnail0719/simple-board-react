@@ -38,20 +38,6 @@ function Write() {
             console.log(err.response.data);
         })
     }
-    
-    const update = () => {
-        axios.post('/api/update', {
-            title : state.title,
-            content : state.content
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log('state2', state);
-            console.log(err.response.data);
-        })
-    }
 
     const onTitleHandler = (event) => {
         setTitle(event.currentTarget.value);
@@ -73,7 +59,7 @@ function Write() {
                     <Form.Control as="textarea" placeholder="내용을 입력하세요" value={content} onChange={onContentHandler}/>
                 </Form.Group>
             </Form>
-            <Button variant="info" onClick={isModifyMode ? isWrite : update}>작성완료</Button>
+            <Button variant="info" onClick={isWrite}>작성완료</Button>
             <Button variant="secondary" onClick={moveHandler}>취소</Button>
         </div>
     );

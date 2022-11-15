@@ -3,8 +3,6 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {useNavigate, Link} from 'react-router-dom'
-import Write from "./write";
-
 
 
 const submitTest = () => {
@@ -96,7 +94,6 @@ function BoardList() {
             </tbody>
         </Table>
         <Button variant="info" onClick={moveHandler}>글쓰기</Button>
-        <Button variant="secondary">수정하기</Button>
         <Button variant="danger" onClick={deleteToData}>삭제하기</Button>
         </div>
     );
